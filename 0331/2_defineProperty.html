@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  var obj = {
+
+  }
+  /* //给 obj 定义一个 name属性 值视 珠峰 
+  Object.defineProperty(obj,'name',{
+    value:"珠峰"
+  }) */
+  /* Object.defineProperty(obj,'name',{
+    value:"珠峰",
+    enumerable:true, //控制该属性是否可枚举
+    writable:true, // 控制该属性是否可写
+    configurable:true, // 控制该属性是否可删除；
+  }) */
+  var t = '珠峰';
+  Object.defineProperty(obj,'name',{
+    get(){
+      // 当外界使用 obj的name属性的时候 会触发该函数, 
+      //  外界使用obj的name属性时，拿到的都是该函数的返回值
+      console.log('this is get')
+      return t
+    },
+    set(val){
+      // 当外界更改 obj 的 name 属性时， 会触发该函数 参数val 是设置的那个值；
+      console.log('this is set',val);
+      t = val;
+    }
+  })
+
+  var obj2 = {
+    name:123,
+    age:234,
+    sex:345
+  }
+  var obj3 = new Proxy(obj2,{
+    get(obj,key){
+      // obj 就是目标对象
+      // key 是调用的对应的属性名
+      console.log(arguments)
+      return obj[key]
+    },
+    set(obj,key,value){
+      obj[key] = value;
+      console.log(arguments)
+    }
+  });
+</script>

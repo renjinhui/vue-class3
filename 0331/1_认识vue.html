@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .hide{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 
+      在小胡子中 可以编写 表达式 但是不能写 语句（if  for  function  var  let ...）
+    -->
+    <h1>{{1 > 2 ? name : name2}}</h1>
+    <h3>{{ age.toFixed(2) }}</h3>
+    <!-- 
+      在vue中 所有的 v- 开头的行内属性 都是vue指令
+      v-text  相当于原生的 innerText 
+      v-html  相当于原生的 innerHTML
+    -->
+    <h2 v-text='str'>666</h2>
+    <h3 v-html='str'></h3>
+    <input type="text" v-model='name2'>
+    <!-- v-model  其实是 v-bind:value 和  v-on:input的共同作用 -->
+
+    <div>
+      {{obj}}
+    </div>
+    <div>
+      {{ary}}
+    </div>
+    <span class='hide'>{{t}}</span>
+  </div>
+  <h2>{{name}}</h2>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  /* 
+    Vue 的最大特点是 数据的双向绑定；单向数据流
+  */
+  let vm = new Vue({
+    el:"#app",
+    data:{
+      // 写在data中的属性 最终都会挂在到当前实例上
+      name:"珠峰培训",
+      name2:"珠峰培训2",
+      age:10,
+      str:"<i>你好 珠峰</i>",
+      ary:[1,2,3,4],//对于数组来说 通过索引修改对应的值 不会触发视图的更新；pop push shift unshift splice 
+      obj:{
+        name:123,
+        age:456,
+        sex:{
+          a:123
+        }
+      },
+      t:0
+    }
+  })
+  // vm.obj.qqq = 666;
+  // vm.obj.www = 777;
+  // vm.t = Math.random();
+  // obj 是有get 和 set 的；那就把obj的整个地址更改；
+  // vm.obj = Object.assign({qqq:666,www:777},vm.obj)
+  // vm.obj = Object.assign({},vm.obj,{qqq:666,www:777})
+  // Object.assign(target,source1,source2,...) 返回值是 合并后的target;target地址没有任何更改
+  vm.$set(vm.obj,'qqq',666)
+</script>

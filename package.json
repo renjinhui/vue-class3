@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "vue": "^2.6.11"
+  },
+  "name": "vue-class3",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renjinhui/vue-class3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renjinhui/vue-class3/issues"
+  },
+  "homepage": "https://github.com/renjinhui/vue-class3#readme"
+}
