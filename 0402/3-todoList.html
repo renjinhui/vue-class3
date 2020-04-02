@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <title>Document</title>
+    <style>
+      .inp_box{
+        width: 300px;
+        float: left;
+      }
+      .box-card{
+        width:370px;
+      }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <el-input class='inp_box' v-model="todo" placeholder="请输入内容"></el-input>
+        <el-button type="primary" @click='add'>确定</el-button>
+        <div>
+          <el-card class="box-card">
+            <div v-for="(item,index) in list" :key="index" class="text item">
+              {{item}} 
+              <el-button type="danger" @click='del(index)'>危险按钮</el-button>
+            </div>
+          </el-card>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            todo:'',
+            list:[1,2,3,4,5,6]
+        },
+        methods: {
+          add(){
+            // this 是 当前的实例； 
+            // methods和data中的属性都最终被挂在到了当前实力上；
+            if(!this.todo){
+              this.$message({
+                showClose: true,
+                message: '不能为空',
+                type: 'warning'
+              });
+              return;
+            }
+            this.list.unshift(this.todo)
+            this.todo = '';
+          },
+          del(index){
+            console.log(index)
+            this.list.splice(index,1);
+          }
+        },
+    });
+</script>

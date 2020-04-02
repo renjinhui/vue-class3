@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{count}}</h1>
+        <button v-on:click.once='add(10)'>+</button>
+        <button @click='add(-10)'>-</button>
+        <button @click='add(20,$event,30,40,0)'>-</button>
+        <a href="http://baidu.com" @click.prevent='add'>珠峰</a>
+
+        <input type="text" v-model='name' @keyup.enter='log'>
+        <!-- 
+          若不写小括号的话 默认传给add函数的时事件对性；
+          若写了小括号 则小括号中的内容就是传给add的实参
+          $event 是vue给的 一个字段 用来表示事件对象；
+        -->
+        
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    /* 
+      vue 把data和methods中的属性都挂在到了 当前实例上；
+      v-on 简写 是一个 @  ; 专门用来处理事件的指令；
+
+      事件修饰符 prevent stop once ...
+    */
+    let vm = new Vue({
+        // el:'#app',
+        data:{
+            name:"珠峰",
+            count:10
+        },
+        methods: {
+          add(e){
+            // 函数中的this 都是当前实例；
+            console.log(arguments);
+            this.count+= e
+          },
+          minus(){
+            this.count-=10;
+          },
+          log(){
+            console.log(this.name)
+          }
+        },
+    }).$mount('#app');
+</script>

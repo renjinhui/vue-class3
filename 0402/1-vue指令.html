@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <h1>{{name}}</h1>
+      <template >
+        <h2 v-show='flag'>666</h2>
+      </template>
+      
+      <h3 v-show='!flag'>{{name}}</h3>
+      <ul>
+        <li v-for='(item,index) in ary' :key='index' v-if='item>3'>{{index}}:{{item}}</li>
+      </ul>
+
+      <div v-if='flag' key='1'>
+        姓名<input type="text" placeholder="姓名">
+      </div>
+      <div v-else key='2'>
+        年龄<input type="text" placeholder="年龄">
+      </div>
+
+      <h3 :class='arr' :aaa='arr'>{{name}}</h3>
+      <h3 :class='obj' :aaa='arr'>{{name}}</h3>
+      <h3 class='qwer' :class='{box:flag,qqq:!flag,www:flag}' :aaa='arr'>{{name}}</h3>
+
+      <h3 :style='{color:"red",display:flag ? "block":"none"}'>{{name}}</h3>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+  /* 
+    v-text
+    v-html
+    v-model
+    v-cloak
+    v-pre
+    v-if  控制是否加载
+    v-show  控制是否显示 有比较大的切换开销的建议使用v-show;
+    v-for  可以用来循环数组 对象 字符串 数字  v-for 的优先级 高于 v-if;
+    v-bind 简写是 :    专门用来处理行内属性的指令  对于 class 和 style 专门做了加强；
+      :class= [q,w,e,r]; 他会把数组中的每一项都当作一个类名添加给对应的元素；
+      :class = {'box':true} 跟对象时  属性名是要添加的类名 属性值是用来控制是否添加该类名
+   */
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            flag:true,
+            ary:[1,2,3,4,5,6],
+            arr:['qqq','box'],
+            obj:{
+              'box':false
+            }
+        }
+    });
+</script>
