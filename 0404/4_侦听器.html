@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <input type="text" v-model='name1'>
+      <input type="text" v-model='name2'>
+      <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+          name:"珠峰",
+          name1:'',
+          name2:'',
+        },
+        watch: {
+          name1(newVal,oldVal){
+            // 当name1发生改变的时候 触发该函数
+            console.log(arguments)
+            this.name = newVal + ' ' + this.name2
+          },
+          name2(newVal,oldVal){
+            this.name = this.name1+ ' ' + newVal;
+          }
+        },
+    });
+</script>

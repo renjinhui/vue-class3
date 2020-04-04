@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bootstrap": "3.3.7",
     "vue": "^2.6.11"
   },
   "name": "vue-class3",

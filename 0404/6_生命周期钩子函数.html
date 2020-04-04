@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            age:10
+        },
+        methods: {
+          add(){}
+        },
+        beforeCreate() {
+          //一般用来写一些三方插件
+          console.log(this.name);
+        },
+        created(){
+          console.log(this.name);
+          //把ajax请求放到该函数中；
+          this.timer = setInterval(() => {
+            console.log(this.name)
+          }, 1000);
+        },
+
+        beforeMount() {
+          // 虚拟DOM渲染完成  但是还没有放到真实的DOM上；
+          console.log(document.querySelector('#app'));
+        },
+        mounted() {
+          // 真实DOM渲染完成之后触发的钩子函数；
+          // 一般用来执行一些跟真是DOM相关的操作
+          console.log(document.querySelector('#app'));
+        },
+
+        
+        //更新的这两个钩子函数  只有当能触发视图更新的data更改时 才会执行
+        beforeUpdate() {
+          console.log(1)
+        },
+        updated() {
+          // 操作跟更新之后的DOM相关的代码
+          console.log(2)
+        },
+
+
+        beforeDestroy() {
+          console.log(3)
+          
+        },
+        destroyed() {
+          // 一般用来清空定时器 或者 接触一些原生的事件绑定
+          clearInterval(this.timer);
+          console.log(4)
+        },
+    });
+</script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+      <!-- <input type="text" v-model='name1'>
+      <input type="text" v-model='name2'> -->
+      <h1>{{name}}</h1>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+          name:"珠峰",
+          name1:{q:1},
+          name2:{w:2},
+        },
+        watch: {
+          name1(newVal,oldVal){
+            // 当name1发生改变的时候 触发该函数
+            console.log(arguments)
+          },
+          name2:{
+            deep:true, // 会把每一层属性都侦听到
+            handler(newVal,oldVal){
+              // 深度侦听时  新旧值是一样的；
+              console.log(newVal,oldVal)
+            }
+          }
+        },
+    });
+</script>

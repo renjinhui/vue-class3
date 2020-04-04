@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='name1'>
+        <input type="text" v-model='name2'>
+        {{name}}
+        <!-- <h1>{{name1 + ' ' + name2}}</h1> -->
+        <h2>{{nameAll}}</h2>
+        <h2>{{nameAll2}}</h2>
+        <h2>{{qqq()}}</h2>
+    </div>
+</body>
+</html>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰",
+            name1:'',
+            name2:''
+        },
+        methods: {
+          qqq(){
+            console.log('qqq')
+            return this.name2;
+          }
+        },
+        computed: {
+          // computed 中的内容也是挂在到了当前的实例上 所以不能跟 data和methods中的属性名重复
+          nameAll(){
+            // 该函数 只要依赖发生改变  该函数就会执行；
+            // 就是是同步写在当前函数中的this属性  都是当前函数的依赖；
+            console.log(666)
+            setTimeout(() => {
+              let a = this.name1;
+            }, 10);
+            return this.name2;
+          },
+          nameAll2:{
+            get(){
+              //当有人使用 nameAll2这个属性时触发该函数
+              return this.name2;
+            },
+            set(val){
+              console.log(val)
+              this.name2 = val;
+            }
+          }
+        },
+    });
+</script>
