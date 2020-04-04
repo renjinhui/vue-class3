@@ -13,6 +13,10 @@
     {{name}}
     <h1>{{name}}</h1>
     <h2>{{age}}</h2>
+    <div>
+      {{age}}
+      <h3>{{age}}</h3>
+    </div>
     <input type="text" v-model='name'>
     <input type="text" v-model='age'>
   </div>
@@ -25,47 +29,73 @@
 -->
 <!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
 <script>
-  function nodeToFragment(node,vm) {
+  let target = null;
+  function nodeToFragment(node, vm) {
     // 把页面上的真实DOM转移到文档碎片上
     let fragment = document.createDocumentFragment();
     let child;
-    while(node.firstChild){
+    while (node.firstChild) {
       child = node.firstChild
       //node.firstChild 他是元素的第一个节点（元素节点或者文本节点或者注释节点）
       // debugger;
 
       // 把真实DOM放到文档碎片上之前 姚进行 VUE语法的渲染
-      compile(child,vm)
+      compile(child, vm)
 
       // 会把页面上的真实DOM转移到文档碎片上，这是真实DOM中就没有该DOM了
       fragment.appendChild(child);
-     
+
     }
     node.appendChild(fragment);
   }
-  function compile(node,vm){
+  function compile(node, vm) {
     // 就是把vue语法转成真实数据
     // 先判断节点类型
-    if(node.nodeType == 1){
+    if (node.nodeType == 1) {
       // 说明该节点是一个元素节点 可能是 h1 也可能是 input
       // 获取元素节点上的所有行内属性 为了获取指令
       let attrs = node.attributes;
-      [...attrs].forEach(item=>{
+      [...attrs].forEach(item => {
         //item.nodeName  行内属性的属性名
         //item.nodeValue 行内属性的属性值
-        if(/v\-/.test(item.nodeName)){
+        if (/v\-/.test(item.nodeName)) {
           let valName = item.nodeValue; // name
-          console.log(valName,vm.$data[valName])
+          console.log(valName, vm.$data[valName])
+          new Watcher(node,vm,valName);
           let val = vm.$data[valName]; // 珠峰
           // node 就是咱们的 input框
           node.value = val;
+          // 当input框的内容发生改变的时候 要把对应的数据更新
+          node.addEventListener('input', (e) => {
+            vm.$data[valName] = e.target.value;
+          }, false)
         }
+      });
+      //若是 h1 h2则需要接着对自己的儿子节点进行编译
+      // debugger
+      [...node.childNodes].forEach(item => {
+        compile(item, vm);
       })
+    } else {
+      // 证明是 文本节点
+      // node.textContent 节点对应的内同
+      console.log(node.textContent)
+      let str = node.textContent;
+      if(/\{\{(\w+)\}\}/.test(str)){
+        // 证明str中存在 小胡子语法
+        str = str.replace(/\{\{(\w+)\}\}/g,(a,b)=>{
+          new Watcher(node,vm,b);
+          return vm.$data[b]
+        })
+        node.textContent = str;
+      }
     }
   }
 
+
+
   function observe(data) {
-    if(!data || typeof data !== 'object')return;
+    if (!data || typeof data !== 'object') return;
     // 对数据进行劫持的一个函数
     // 那么就需要获取所有的属性名
     let keys = Object.keys(data); // 
@@ -78,14 +108,54 @@
     // 对 obj 的 key 属性进行劫持
     // 每一次该函数执行都会形成一个私有的作用域  这里的value是私有的变量
     observe(value)
+    let dep = new Dep();
     Object.defineProperty(obj, key, {
       get() {
+        if(target){
+          dep.addSub(target)
+        }
         return value
       },
       set(newValue) {
-        value = newValue
+        // 当重新给对应的属性名赋值的时候  要让所有用到该属性的地方全部跟着更新即可
+        console.log(newValue)
+        value = newValue;
+        dep.notify();
       }
     })
+  }
+
+  // 创造一个订阅器
+  class Dep{
+    constructor(){
+      this.subs = [];
+    }
+    addSub(sub){
+      this.subs.push(sub)
+    }
+    notify(){
+      this.subs.forEach(item=>{
+        // 每一个item都是一个 小的 Watcher实例
+        item.update();
+      })
+    }
+  }
+  // 创造观察者
+  class Watcher{
+    constructor(node,vm,key){
+      target = this;
+      this.node = node;
+      this.vm = vm;
+      this.key = key
+    }
+    update(){
+      target = null;
+      if(this.node.nodeType == 1){
+        this.node.value = this.vm.$data[this.key]
+      }else{
+        this.node.textContent = this.vm.$data[this.key]
+      }
+    }
   }
 
   function Vue(options) {
@@ -94,7 +164,7 @@
     // 对数据进行劫持 Object.defineProperty
     observe(this.$data);
     // 要对DOM结构进行 vue语法的渲染
-    nodeToFragment(this.$el,this);
+    nodeToFragment(this.$el, this);
   }
 
 
@@ -102,11 +172,11 @@
     el: '#app',
     data: {
       name: "珠峰",
-      age:10,
-      obj:{
-        a:123,
-        b:{
-          c:123
+      age: 10,
+      obj: {
+        a: 123,
+        b: {
+          c: 123
         }
       }
     }
