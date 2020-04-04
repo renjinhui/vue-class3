@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{name}}</h1>
+        <my-h1></my-h1>
+        <my-h1></my-h1>
+        <my-h1></my-h1>
+        <my-h1></my-h1>
+        <my-h3></my-h3>
+    </div>
+</body>
+</html>
+
+
+
+<template id='myh1'>
+  <div>
+    <i>{{name + 123456}}</i>
+    <h1>{{name}}</h1>
+  </div>
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.component('my-h1',{
+      template:'#myh1',
+      // 在 VUE 的组件中 除了new Vue 这个跟组件  其他组件的data属性都是函数
+      // 是为了保证数据的独立性；
+      data(){
+        return{
+          name:"这是自己造的H1组件"
+        }
+      }
+    })
+
+    let obj = {
+      template:"<h3 @click='add'>这是我自己的局部组件</h3>",
+      methods: {
+        add(){
+          console.log(6666)
+        }
+      },
+    }
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            name:"珠峰"
+        },
+        components:{
+          'my-h3':obj
+        }
+    });
+</script>
