@@ -1,35 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
+
 <body>
-    <div id="app">
-        <input type="text" v-model='name'>
-        <h1>{{name|upper|qqq}}</h1>
-    </div>
+  <div id="app">
+    <input type="text" v-model='name'>
+    <h1>{{name|upper|qqq}}</h1>
+    <button @click='a' @dblclick='b'>按钮</button>
+  </div>
 </body>
+
 </html>
-<script src="../node_modules/vue/dist/vue.js"></script>
+<!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    let vm = new Vue({
-        el:'#app',
-        data:{
-            name:"珠峰"
-        },
-        filters:{
-          // 过滤器中的函数中的this不是当前实例
-          upper(val){
-            // val 是 管道符（|） 前边的值
-            console.log(val)
-            return val.toUpperCase();
-          },
-          qqq(val){
-            return 'qqq' + val
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      name: "珠峰"
+    },
+    methods: {
+      a() {
+        this.flag = true;
+        setTimeout(() => {
+          if (this.flag) {
+            console.log('1')
           }
-        }
-    });
+        }, 300);
+
+      },
+      b() {
+        this.flag = false;
+        console.log(2)
+      }
+    },
+    filters: {
+      // 过滤器中的函数中的this不是当前实例
+      upper(val) {
+        // val 是 管道符（|） 前边的值
+        console.log(val)
+        return val.toUpperCase();
+      },
+      qqq(val) {
+        return 'qqq' + val
+      }
+    }
+  });
+</script>
+<script>
+  arr = [{
+      id: 1,
+      code: 11,
+      size: 10,
+      name: 'm'
+    },
+    {
+      id: 1,
+      code: 2,
+      size: 7,
+      name: 'm'
+    },
+    {
+      id: 2,
+      code: 3,
+      size: 3,
+      name: 'k'
+    },
+    {
+      id: 2,
+      code: 4,
+      size: 5,
+      name: 'k'
+    },
+    {
+      id: 4,
+      code: 5,
+      size: 3,
+      name: 'z'
+    },
+    {
+      id: 4,
+      code: 9,
+      size: 1,
+      name: 'z'
+    },
+    {
+      id: 1,
+      code: 6,
+      size: 7,
+      name: 'm'
+    },
+    {
+      id: 3,
+      code: 7,
+      size: 10,
+      name: 'a'
+    },
+    {
+      id: 3,
+      code: 8,
+      size: 60,
+      name: 'a'
+    },
+  ]
+
+  let ary = [];
+  let t = [arr[0]];
+  arr.sort((a,b)=>{
+    return a.id - b.id
+  }).reduce((prev,next)=>{
+    if(prev.id == next.id){
+      t.push(next)
+    }else{
+      ary.push(t)
+      t = [next];
+    }
+    return next
+  })
+  console.log(ary)
+  
 </script>

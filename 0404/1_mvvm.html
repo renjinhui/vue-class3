@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    {{name}}
+    <h1>{{name}}</h1>
+    <h2>{{age}}</h2>
+    <input type="text" v-model='name'>
+    <input type="text" v-model='age'>
+  </div>
+</body>
+
+</html>
+<!-- 
+  MVVM : M:model  V:view   vm
+  MVC  : M:model  V:view   c controller   
+-->
+<!-- <script src="../node_modules/vue/dist/vue.js"></script> -->
+<script>
+  function nodeToFragment(node,vm) {
+    // 把页面上的真实DOM转移到文档碎片上
+    let fragment = document.createDocumentFragment();
+    let child;
+    while(node.firstChild){
+      child = node.firstChild
+      //node.firstChild 他是元素的第一个节点（元素节点或者文本节点或者注释节点）
+      // debugger;
+
+      // 把真实DOM放到文档碎片上之前 姚进行 VUE语法的渲染
+      compile(child,vm)
+
+      // 会把页面上的真实DOM转移到文档碎片上，这是真实DOM中就没有该DOM了
+      fragment.appendChild(child);
+     
+    }
+    node.appendChild(fragment);
+  }
+  function compile(node,vm){
+    // 就是把vue语法转成真实数据
+    // 先判断节点类型
+    if(node.nodeType == 1){
+      // 说明该节点是一个元素节点 可能是 h1 也可能是 input
+      // 获取元素节点上的所有行内属性 为了获取指令
+      let attrs = node.attributes;
+      [...attrs].forEach(item=>{
+        //item.nodeName  行内属性的属性名
+        //item.nodeValue 行内属性的属性值
+        if(/v\-/.test(item.nodeName)){
+          let valName = item.nodeValue; // name
+          console.log(valName,vm.$data[valName])
+          let val = vm.$data[valName]; // 珠峰
+          // node 就是咱们的 input框
+          node.value = val;
+        }
+      })
+    }
+  }
+
+  function observe(data) {
+    if(!data || typeof data !== 'object')return;
+    // 对数据进行劫持的一个函数
+    // 那么就需要获取所有的属性名
+    let keys = Object.keys(data); // 
+    console.log(keys)
+    keys.forEach(key => {
+      defineReactive(data, key, data[key])
+    })
+  }
+  function defineReactive(obj, key, value) {
+    // 对 obj 的 key 属性进行劫持
+    // 每一次该函数执行都会形成一个私有的作用域  这里的value是私有的变量
+    observe(value)
+    Object.defineProperty(obj, key, {
+      get() {
+        return value
+      },
+      set(newValue) {
+        value = newValue
+      }
+    })
+  }
+
+  function Vue(options) {
+    this.$el = document.querySelector(options.el || '#app');
+    this.$data = options.data || {};
+    // 对数据进行劫持 Object.defineProperty
+    observe(this.$data);
+    // 要对DOM结构进行 vue语法的渲染
+    nodeToFragment(this.$el,this);
+  }
+
+
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      name: "珠峰",
+      age:10,
+      obj:{
+        a:123,
+        b:{
+          c:123
+        }
+      }
+    }
+  });
+</script>
