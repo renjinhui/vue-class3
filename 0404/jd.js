@@ -49,6 +49,7 @@ let vm = new Vue({
         return this.list.every(item=>item.isSelect)
       },
       set(val){
+        console.log(val)
         this.list.forEach(item=>item.isSelect = val)
       }
     },
