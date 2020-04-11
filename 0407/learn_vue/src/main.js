@@ -18,7 +18,16 @@ Vue.component('my-button',{
   }
 })
 
-
+/* router.beforeEach((to,from,next)=>{
+  console.log(to)
+  if(user.level > to.meta.level){
+    // 
+    next(from.path)
+  }else{
+    document.title = to.meta.til || '珠峰'
+    next();
+  }
+}) */
 new Vue({
   router:router,
   store,
