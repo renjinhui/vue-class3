@@ -16,3 +16,12 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.home,*{
+  margin:0;
+  padding:0
+}
+  img{
+    width:600px;
+  }
+</style>

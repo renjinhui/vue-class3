@@ -30,10 +30,15 @@
 </template>
 
 <script>
+import {obj} from '@/mixins'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  mixins:[obj],
+  created(){
+    console.log(this,'===========')
   }
 }
 </script>
