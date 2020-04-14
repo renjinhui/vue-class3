@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+// import Vuex from 'vuex'
+import Vuex from './myvuex'
 
 Vue.use(Vuex)
 
@@ -19,8 +20,6 @@ let loginModule = {
 export default new Vuex.Store({
   state: {
     count:0,
-    qqq:123,
-    www:345
   },
   mutations: {
     //mutations中的方法是用来改变state中的数据的；
@@ -31,9 +30,6 @@ export default new Vuex.Store({
     changeCount(state,params,...ary){
       console.log('---------',state,params,ary)
       state.count = params
-    },
-    changeName(){
-      console.log(66666666666)
     }
   },
   actions: {
@@ -53,8 +49,5 @@ export default new Vuex.Store({
       console.log(getters)
       return state.count % 2 ? "奇数" : '偶数'
     }
-  },
-  modules: {
-    login:loginModule
   }
 })
