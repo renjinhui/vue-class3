@@ -2,9 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
-import { Button } from 'vant';
-Vue.use(Button)
+import './common/vant'
+import './common/ali.less'
 
 Vue.config.productionTip = false
 

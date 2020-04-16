@@ -35,6 +35,11 @@ Vue.use(VueRouter)
     component:()=>import('../views/login.vue')
   },
   {
+    path:'/goodsInfo/:goodsId',
+    name:'goodsInfo',
+    component: ()=>import('../views/goods.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -47,6 +52,8 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
+  // linkActiveClass:'qqq',//默认是 router-link-active
+  // linkExactActiveClass:'www',// 默认是 router-link-exact-active
   routes
 })
 

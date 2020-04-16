@@ -1,20 +1,20 @@
 <template>
     <div>
         <router-view></router-view>
-        <ul>
-          <li>
-            <router-link to="/home">首页</router-link>
-          </li>
-          <li>
-            <router-link to="/classify">分类页</router-link>
-          </li>
-          <li>
-            <router-link to="/cart">购物车页</router-link>
-          </li>
-          <li>
-            <router-link to="/user">个人中心页</router-link>
-          </li>
-        </ul>
+        <botNav></botNav>
+        <div class="height_50"></div>
     </div>
 </template>
-
+<script>
+import botNav from '@/components/botNav.vue'
+export default {
+  components:{
+    botNav
+  }
+}
+</script>
+<style lang="less">
+  .height_50{
+    height: 50px;
+  }
+</style>
