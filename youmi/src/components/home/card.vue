@@ -1,13 +1,13 @@
 <template>
     <ul class='card_box'>
-        <li v-for='index in 8'>
-          <router-link :to='{name:"goodsInfo",params:{goodsId:index}}'>
+        <li v-for='(item,index) in data' :key='index'>
+          <router-link :to='{name:"goodsInfo",params:{goodsId:item.id}}'>
             <div class="img_box">
-              <img src="https://img.youpin.mi-img.com/shopmain/14a6181a991adee0543bfc07a98dced3.jpg@base@tag=imgScale&h=342&w=342" alt="">
+              <img :src="item.img" alt="">
             </div>
-            <h3 class="til">小米</h3>
-            <div class="desc">描述</div>
-            <div class="price">￥1999起</div>
+            <h3 class="til">{{item.til}}</h3>
+            <div class="desc">{{item.desc}}</div>
+            <div class="price">￥{{item.price|money}}起</div>
           </router-link>
         </li>
     </ul>
@@ -15,7 +15,8 @@
 <script>
 // @ is an alias to /src
 export default {
-    name: 'XXX',
+    name: 'CARD',
+    props:['data'],
     data() {
         return {
         
@@ -49,9 +50,17 @@ export default {
       }
       .til{
         padding: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .desc,.price{
         padding: 0 5px;
+         overflow: hidden;      
+        text-overflow: ellipsis;      
+        display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */      
+        -webkit-line-clamp: 2; /* 控制最多显示几行 */      
+        -webkit-box-orient: vertical; 
       }
       .price{
         color:red;

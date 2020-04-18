@@ -5,9 +5,9 @@
 
         <!-- 首页导航部分 -->
         <van-grid :column-num="5" class='home_navs_box'>
-            <van-grid-item v-for="value in 10" :key="value">
-                <van-image src="https://img.youpin.mi-img.com/jianyu/548747b208d49dc822cce9b021ee163e.png@base@tag=imgScale&h=100&m=1&q=80&w=100" />
-                <h3 class='til'>小米油品</h3>
+            <van-grid-item v-for="(item,index) in navs" :key="index">
+                <van-image :src="item.img" />
+                <h3 class='til'>{{item.til}}</h3>
             </van-grid-item>
         </van-grid>
 
@@ -16,9 +16,9 @@
             <van-tab 
                 v-for="index in ary" 
                 :title="index"
-                :name='index+"6666"'
+                :name='index'
             >
-                <myCard></myCard>
+                <myCard :data='goodsList'></myCard>
             </van-tab>
         </van-tabs>
     </div>
@@ -27,19 +27,38 @@
 // @ is an alias to /src
 import mySwiper from './swiper'
 import myCard from './card'
+import {getNavs123,getGoodsList} from '@/common/api'
 export default {
-    name: 'XXX',
+    name: 'HOME',
     data() {
         return {
-            ary:['小敏1','小敏2','小敏3','小敏4','小敏5','小敏6']
+            ary:['小敏1','小敏2','小敏3','小敏4','小敏5','小敏6'],
+            navs:[],
+            goodsList:[]
         }
+    },
+    created() {
+        this.getNavs();
+        this.getGoodsList(this.ary[0])
     },
     components: {
         mySwiper,myCard
     },
     methods: {
-        changeTab(){
-            console.log(arguments)
+        changeTab(name){
+            this.getGoodsList(name)
+        },
+        getNavs(){
+            // 组件内部的 封装的请求 navs数据的函数
+            getNavs123().then(data=>{
+                // console.log(data)
+                this.navs = data.data || [];
+            })
+        },
+        getGoodsList(type){
+            getGoodsList(type).then(data=>{
+                this.goodsList = data.data;
+            })
         }
     },
 }
