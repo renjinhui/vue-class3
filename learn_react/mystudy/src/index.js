@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -7,18 +7,23 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
+    {/* <App /> }
     <MyApp className='qqq' til='666'/>
   </React.StrictMode>,
   document.getElementById('root')
 );
-/* 
+/*  */
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister(); */
+// serviceWorker.unregister(); */
 
 // import './less/app.less'
 // import './0423/App'
 // import './0423/2_selfjsx'
 // import './0423/3_组件'
+
+// import './0425/1_组件'
+// import './0425/2_状态和属性'
+import './0425/3_事件'
+// import './0425/4_setState'
