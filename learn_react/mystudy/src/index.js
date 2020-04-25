@@ -25,5 +25,11 @@ ReactDOM.render(
 
 // import './0425/1_组件'
 // import './0425/2_状态和属性'
-import './0425/3_事件'
+// import './0425/3_事件'
 // import './0425/4_setState'
+// import './0425/5_useState'
+// import './0425/6_父子组件'
+// import './0425/7_prop-types'
+// import './0425/8_插槽'
+// import './0425/9_dialog'
+import './0425/banner/index'

@@ -58,8 +58,12 @@ class App extends React.Component {
       }); */
       
     }
-    nothing(e){
-      console.log(e)
+    nothing=(e)=>{
+      // console.log(e)
+      setInterval(() => {
+        this.setState({})
+      }, 1000);
+      
     }
     render() {
       var {ary} = this.state;
@@ -81,6 +85,8 @@ class App extends React.Component {
           */}
           <button onClick={(e)=>{this.minus(e,6,6,6,1,2,3)}}>删除</button>
           <button onClick={this.nothing}>不变</button>
+
+          <h1>{new Date().toLocaleString()}</h1>
       </div>;
     }
 }
