@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import Input from './todo/input'
-import List from './todo/list'
+import Input from './todo2/input'
+import List from './todo2/list'
 
 
 class App extends React.Component {
