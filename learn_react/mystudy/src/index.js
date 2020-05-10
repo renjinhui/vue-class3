@@ -42,4 +42,5 @@ ReactDOM.render(
 // import './0430/上下文/index'
 // import './0430/上下文2/index'
 // import './0430/redux/index'
-import './0430/redux/index2'
+// import './0430/redux/index2'
+import './0510/index'
