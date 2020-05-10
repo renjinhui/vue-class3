@@ -11,7 +11,7 @@ export function countReducer(state=initState,action){
   switch (action.type) {
     case 'add':
       // 复杂的业务逻辑
-      let c = (state.count + action.num)*100
+      let c = (state.count + action.num)
       return {
         ...state,
         count:c

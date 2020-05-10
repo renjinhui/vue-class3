@@ -12,7 +12,12 @@ class App extends React.Component {
         
     }
     add=()=>{
-      store.dispatch({type:'add',num:1})
+      // store.dispatch({type:'add',num:1})
+      store.dispatch((dispatch,getState)=>{
+        setTimeout(() => {
+          dispatch({type:'add',num:1})
+        }, 2000);
+      })
       console.log(store.getState())
 
     }
@@ -22,9 +27,12 @@ class App extends React.Component {
     }
     componentDidMount(){
       // 当DOM加载完成之后，我们向redux的事件池数组中添加回调函数(触发视图更新)
-      store.subscribe(()=>{
+      this.f = store.subscribe(()=>{
         this.setState({});
       })
+    }
+    componentWillUnmount(){
+      this.f();// 当组件销毁的时候 会把对应的回调函数移除掉；这是一个优化操作
     }
     render() {
         return <div className=''>
