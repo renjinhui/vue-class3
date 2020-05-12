@@ -1,0 +1,26 @@
+.home_box,.qqq{
+  min-height: 100vh;
+}
+
+.header_box{
+  display: flex;
+  align-items: center;
+}
+.header_box .logo{
+  color:#fff;
+  font-size: 25px;
+  width: 200px;
+}
+.header_box nav{
+  flex: auto;
+
+}
+.header_box .right{
+  width: 200px;
+  text-align: right;
+  color:#fff;
+  cursor: pointer;
+}
+.header_box .right span{
+  padding-left: 10px;
+}
