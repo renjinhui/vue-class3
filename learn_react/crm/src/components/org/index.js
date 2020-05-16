@@ -16,7 +16,7 @@ class ORG extends React.Component {
 
     state = {
         collapsed: false,
-        bread:[]
+        bread:['部门管理','新增部门']
     };
 
     toggleCollapsed = () => {
@@ -31,7 +31,7 @@ class ORG extends React.Component {
             case 'department':
                 this.state.bread = ['部门管理','部门列表']
                 break;
-            case 'AddDepartment':
+            case 'addDepartment':
                 this.state.bread = ['部门管理','新增部门']
                 break;
             // 。。。  自己补充 剩下的4个  
@@ -48,8 +48,9 @@ class ORG extends React.Component {
             <Sider collapsed={this.state.collapsed}  onCollapse = {this.toggleCollapsed}>
             {/*自己实现 根据当前的路径 自动打开导航 并且默认选中当前路径对应的导航 */}
                 <Menu
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
+                    defaultSelectedKeys={[this.state.bread[1]]}
+                    defaultOpenKeys={[this.state.bread[0]]}
+                    selectedKeys = {[this.state.bread[1]]}
                     mode="inline"
                     theme="dark"
                 >

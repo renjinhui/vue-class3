@@ -1,0 +1,16 @@
+{
+  "name": "learn_node",
+  "version": "1.0.0",
+  "description": "- node 是提供了一种 JS的运行环境；JS只能在浏览器端运行，想让JS在服务器上运行 node给我们提供了这种环境\r   -      node 在服务器上创造了一个 浏览器 让JS可以在那个上边运行；\r   - 下载  http://nodejs.cn/download/   进行傻瓜式安装   自带 npm",
+  "main": "1_fs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "qs": "^6.9.4"
+  }
+}

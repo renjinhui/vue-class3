@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id='inp'>
+  <button id="btn">提交</button>
+  <ul id='list'></ul>
+</body>
+</html>
+<script>
+  function http(url,type='get',data={}){
+    return new Promise((res,rej)=>{
+      let str = '';
+      Object.keys(data).forEach(item=>{
+        str += `${item}=${data[item]}&`
+      })
+      url = 'http://localhost:8000'+url;
+      let xhr = new XMLHttpRequest();
+      xhr.open(type,url+'?'+str,true);
+      xhr.onreadystatechange = function(){
+        if(xhr.status=='200'&&xhr.readyState ==4){
+          res(JSON.parse(xhr.response))
+        }
+      }
+      xhr.send(JSON.stringify(data))
+    })
+  }
+  btn.onclick = function(){
+    let val = inp.value;
+    http('/add','post',{
+      val:val
+    }).then(init)
+  }
+  function init(){
+    http('/list','get').then(data=>{
+      let ary = data.data;
+      let str = '';
+      ary.forEach(item=>{
+        str += `<li>${item.val}</li>`
+      })
+      list.innerHTML = str
+    })
+  }
+  init()
+</script>
