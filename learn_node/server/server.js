@@ -7,6 +7,7 @@ app.listen(8000,function(){
   console.log('服务起于 8000端口')
 })
 app.use((req,res,next)=>{
+  // cors
   res.header('Access-Control-Allow-Origin','http://127.0.0.1:5500');//解决跨域
   next();
 })

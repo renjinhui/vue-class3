@@ -4,7 +4,7 @@ module.exports = {
 
 	//=>CROS跨域相关信息
 	CROS: {
-		ALLOW_ORIGIN: 'http://localhost:3000',
+		ALLOW_ORIGIN: 'http://127.0.0.1:5500',
 		ALLOW_METHODS: 'PUT,POST,GET,DELETE,OPTIONS,HEAD',
 		HEADERS: 'Content-Type,Content-Length,Authorization, Accept,X-Requested-With',
 		CREDENTIALS: true

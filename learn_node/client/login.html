@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id='usernameInp'>
+  <input type="text" id="pswInp">
+  <button id='btn'>登录</button>
+  <button id='info'>info</button>
+</body>
+</html>
+<script>
+  btn.onclick = function(){
+    let username = usernameInp.value,
+        psw = pswInp.value;
+    let xhr =  new XMLHttpRequest;
+    xhr.open('post','http://localhost:8888/login');
+    xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+    xhr.withCredentials = true;// 允许前端跨域携带cookie给后端 
+    xhr.onreadystatechange = function(){}
+    // xhr.send(JSON.stringify({username,psw})) 
+    xhr.send(`username=${username}&psw=${psw}`)
+  }
+  info.onclick = function(){
+    let xhr =  new XMLHttpRequest;
+    xhr.open('get','http://localhost:8888/info?123432');
+    // xhr.setRequestHeader('content-type','application/x-www-form-urlencoded')
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = function(){}
+    xhr.send() 
+  }
+</script>
