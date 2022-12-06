@@ -12,6 +12,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "qs": "^6.9.4"
+    "qs": "^6.9.7"
   }
 }
